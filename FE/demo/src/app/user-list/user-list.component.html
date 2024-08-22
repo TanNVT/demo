@@ -1,0 +1,44 @@
+<div class="container">
+  <h1>User Management</h1>
+
+  <!-- Search Fields -->
+  <div class="search-container">
+    <div class="search-field">
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="searchUsername" (input)="onSearchChange()"
+        placeholder="Search by username" />
+    </div>
+    <div class="search-field">
+      <label for="email">Email:</label>
+      <input type="text" id="email" [(ngModel)]="searchEmail" (input)="onSearchChange()"
+        placeholder="Search by email" />
+    </div>
+    <div class="search-field">
+      <label for="role">Role:</label>
+      <input type="text" id="role" [(ngModel)]="searchRole" (input)="onSearchChange()" placeholder="Search by role" />
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -8,5 +8,6 @@ namespace NewDemoWebApp.ServiceInterface.User
     {
         Task<Response> Search(SearchUserRequest model);
         Task<Response> Create(CreateUserRequest model);
+        Task<Response> Delete(Guid id);
     }
 }

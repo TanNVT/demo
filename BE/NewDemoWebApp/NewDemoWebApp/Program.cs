@@ -1,5 +1,6 @@
 
 using NewDemoWebApp.DatabaseContext;
+using NewDemoWebApp.Middleware;
 using NewDemoWebApp.Service.User;
 using NewDemoWebApp.ServiceInterface.User;
 
@@ -18,8 +19,12 @@ namespace NewDemoWebApp
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddSingleton<DatabaseFromFileService>();
+            builder.Services.AddCors(x => x.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
 
             var app = builder.Build();
 
@@ -29,12 +34,12 @@ namespace NewDemoWebApp
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.MapControllers();
 
             app.Run();

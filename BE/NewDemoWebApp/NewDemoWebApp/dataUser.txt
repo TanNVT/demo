@@ -1,3 +1,3 @@
 Id, Username, Password, Email, Role, CreatedDate, ModifiedDate
-5c26d399-b0d2-4d42-a42c-ab1d6c1fb1eb, string, string, string, string, , 
-
+496ca9f4-3fa7-4bb3-8a98-c720f0a4eb55, tannvt, , tannvt, User, , 
+d69fa6f7-1e4e-42a0-ac27-5371c1d0b2b2, thanh, , tan, User, , 

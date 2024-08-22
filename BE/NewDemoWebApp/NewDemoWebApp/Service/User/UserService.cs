@@ -1,5 +1,6 @@
 ﻿using NewDemoWebApp.Common;
 using NewDemoWebApp.DatabaseContext;
+using NewDemoWebApp.Entities;
 using NewDemoWebApp.Service.User.Create.Request;
 using NewDemoWebApp.Service.User.Search.Request;
 using NewDemoWebApp.Service.User.Search.Responses;
@@ -18,10 +19,11 @@ namespace NewDemoWebApp.Service.User
 
         public async Task<Response> Search(SearchUserRequest model)
         {
-            var query = _databaseContext.GetUsers().Where(x => string.IsNullOrWhiteSpace(model.Username) || x.Username.Contains(model.Username)
-                                                               && string.IsNullOrWhiteSpace(model.Email) || x.Email.Contains(model.Email)
-                                                               && string.IsNullOrWhiteSpace(model.Role) || x.Role == model.Role).Select(x => new SearchUserResponse
+            var query = _databaseContext.GetUsers().Where(x => (string.IsNullOrWhiteSpace(model.Username) || x.Username.Contains(model.Username))
+                                                               && (string.IsNullOrWhiteSpace(model.Email) || x.Email.Contains(model.Email))
+                                                               && (string.IsNullOrWhiteSpace(model.Role) || x.Role == model.Role)).Select(x => new SearchUserResponse
                                                                {
+                                                                   Id = x.Id,
                                                                    Role = x.Role,
                                                                    Username = x.Username,
                                                                    Email = x.Email,
@@ -44,6 +46,13 @@ namespace NewDemoWebApp.Service.User
                 Id = Guid.NewGuid(),
             };
             _databaseContext.AddUser(user);
+            return Ok();
+        }
+
+        public async Task<Response> Delete(Guid id)
+        {
+            _databaseContext.RemoveUser(id);
+            _databaseContext.RemoveLine<Entities.User>(x => x.Id == id);
             return Ok();
         }
     }
