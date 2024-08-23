@@ -4,6 +4,7 @@ using NewDemoWebApp.Entities;
 using NewDemoWebApp.Service.User.Create.Request;
 using NewDemoWebApp.Service.User.Search.Request;
 using NewDemoWebApp.Service.User.Search.Responses;
+using NewDemoWebApp.Service.User.Update.Request;
 using NewDemoWebApp.ServiceInterface.User;
 using static NewDemoWebApp.Common.ApiResponse;
 
@@ -49,6 +50,37 @@ namespace NewDemoWebApp.Service.User
             return Ok();
         }
 
+        public async Task<Response> Update(UpdateUserRequest model)
+        {
+            if(model.Id == null)
+            {
+                return Ok();
+            }
+            var dataListUser = _databaseContext.Users;
+            var entityUpdated = dataListUser.FirstOrDefault(x => x.Id == model.Id);
+            if(entityUpdated is null)
+            {
+                return Ok();
+            }
+            if (!string.IsNullOrWhiteSpace(model.Username))
+            {
+                entityUpdated.Username = model.Username;
+            }
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                entityUpdated.Email = model.Email;
+            }
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            {
+                entityUpdated.Password = model.Password;
+            }
+            if (!string.IsNullOrEmpty(model.Role))
+            {
+                entityUpdated.Role = model.Password;
+            }
+            _databaseContext.UpdateList(dataListUser);
+            return Ok();
+        }
         public async Task<Response> Delete(Guid id)
         {
             _databaseContext.RemoveUser(id);

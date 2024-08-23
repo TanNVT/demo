@@ -123,6 +123,31 @@ namespace NewDemoWebApp.DatabaseContext
             }
         }
 
+        public void UpdateList<T>(List<T> UpdatedDataList) where T : class, new()
+        {
+            if (!File.Exists(_userDataFileName))
+            {
+                return;
+            }
+
+            var lines = File.ReadAllLines(_userDataFileName).ToList();
+            var header = lines[0];
+            var updatedLines = UpdatedDataList;
+            using (var writer = new StreamWriter(_userDataFileName, false))
+            {
+                writer.WriteLine(header);
+                foreach (var entity in updatedLines)
+                {
+                    var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    var values = string.Join(", ", properties.Select(p => p.GetValue(entity)?.ToString()));
+                    writer.WriteLine(values);
+                }
+            }
+
+        }
+
+
+
         public void RemoveUser(Guid id)
         {
             Users = Users.Where(x => x.Id != id).ToList();
@@ -140,7 +165,7 @@ namespace NewDemoWebApp.DatabaseContext
         public void AddEmployee(Employee employee)
         {
             Employee.Add(employee);
-            if (employee != null && Users.Count > 0)
+            if (Employee != null && Employee.Count > 0)
             {
                 AppendEntityToFile<Employee>(employee, _employeeDataFileName);
             }

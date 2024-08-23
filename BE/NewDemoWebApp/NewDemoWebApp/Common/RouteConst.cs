@@ -7,7 +7,7 @@
         public class Employee
         {
             public const string Search = defaultRoute;
-            public const string Update = defaultRoute+"/{id}";
+            public const string Update = defaultRoute;
             public const string Delete = defaultRoute+"/{id}";
             public const string Create = defaultRoute;
         }

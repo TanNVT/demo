@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using NewDemoWebApp.Common;
 using NewDemoWebApp.Service.User;
 using NewDemoWebApp.Service.User.Create.Request;
 using NewDemoWebApp.Service.User.Search.Request;
+using NewDemoWebApp.Service.User.Update.Request;
 using NewDemoWebApp.ServiceInterface.User;
+using System.Data;
 using System.Reflection;
 
 namespace NewDemoWebApp.Controllers
@@ -32,8 +35,9 @@ namespace NewDemoWebApp.Controllers
         }
         [HttpPut]
         [Route(RouteConst.Employee.Update)]
-        public async Task<IActionResult> Update()
+        public async Task<object> Update([FromBody]UpdateUserRequest model)
         {
+            await _userService.Update(model);
             return Ok();
         }
         [HttpDelete]
