@@ -1,2 +1,5 @@
 Id, Username, Password, Email, Role, CreatedDate, ModifiedDate
 d7709105-0c50-4a1c-8073-0c2a0e89450f, tannvtthanhnguyen, string, string, string, , 
+605bd53e-eee0-4c7f-b40f-3aed845b23d0, ThisIsFirstUser, 123, tannvt@gmail.com, User, , 
+1c1fee81-9c95-4012-b12b-940f58a4abd3, Hi2, Hi, Hi, User, , 
+a2c0601b-6ca0-4a06-b0ff-f6b63906b811, FirstUser2, 123, FirstUser@gmail.com, User, , 

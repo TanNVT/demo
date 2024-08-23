@@ -70,13 +70,9 @@ namespace NewDemoWebApp.Service.User
             {
                 entityUpdated.Email = model.Email;
             }
-            if (!string.IsNullOrWhiteSpace(model.Password))
-            {
-                entityUpdated.Password = model.Password;
-            }
             if (!string.IsNullOrEmpty(model.Role))
             {
-                entityUpdated.Role = model.Password;
+                entityUpdated.Role = model.Role;
             }
             _databaseContext.UpdateList(dataListUser);
             return Ok();

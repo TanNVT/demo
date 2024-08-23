@@ -18,7 +18,7 @@
       <input type="text" id="role" [(ngModel)]="searchRole" (input)="onSearchChange()" placeholder="Search by role" />
     </div>
   </div>
-
+  <button mat-raised-button color="primary" (click)="openAddUserDialog()">Add New User</button>
   <table>
     <thead>
       <tr>
@@ -36,7 +36,8 @@
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
         <td>
-          <button (click)="deleteUser(user.id)">Delete</button>
+          <button mat-button color="warn"  (click)="deleteUser(user.id)">Delete</button>
+          <button mat-button color="accent" (click)="openEditUserDialog(user)">Edit</button>
         </td>
       </tr>
     </tbody>
